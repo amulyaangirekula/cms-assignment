@@ -7,7 +7,7 @@ from sqlalchemy import func
 app = Flask(__name__)
 
 # Must match docker compose DB host name
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://cms_user:cms_pass@db:5432/cms"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)

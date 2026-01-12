@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>👋 Welcome to CMS Dashboard</h2>
+
+    <!-- ADMIN MENU -->
+    {% if role == "admin" %}
+        <div class="card">
+            <h3>🛠 Admin Panel</h3>
+            <a href="/ui/programs" class="btn">Manage Programs</a>
+            <a href="/catalog-ui" class="btn">Public Catalog</a>
+            <a href="/logout" class="btn danger">Logout</a>
+        </div>
+
+    <!-- USER MENU -->
+    {% else %}
+        <div class="card">
+            <h3>📚 User Panel</h3>
+            <a href="/catalog-ui" class="btn">Public Catalog</a>
+            <a href="/logout" class="btn danger">Logout</a>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

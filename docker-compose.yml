@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: cms-db
+    environment:
+      POSTGRES_DB: cms
+      POSTGRES_USER: cms_user
+      POSTGRES_PASSWORD: cms_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build: ./api
+    container_name: cms-api
+    environment:
+      DATABASE_URL: postgresql://cms_user:cms_pass@db:5432/cms
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  worker:
+    build: ./worker
+    container_name: cms-worker
+    environment:
+      DATABASE_URL: postgresql://cms_user:cms_pass@db:5432/cms
+    depends_on:
+      - db
+
+volumes:
+  db_data:

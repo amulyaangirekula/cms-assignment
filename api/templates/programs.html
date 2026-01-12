@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programs</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Back Button -->
+    <a href="/dashboard" class="back-btn">⬅ Back to Dashboard</a>
+
+    <h2>📚 Manage Programs</h2>
+
+    <a href="/programs/create" class="btn">➕ Create New Program</a>
+
+    <div class="grid">
+        {% for program in programs %}
+            <div class="card">
+                <h3>{{ program.title }}</h3>
+                <p>Status: {{ program.status }}</p>
+                <p>Language: {{ program.language_primary }}</p>
+
+                <a href="/ui/programs/{{ program.id }}" class="btn-secondary">
+                    View Program
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

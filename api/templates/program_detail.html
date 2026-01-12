@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ program.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h2>{{ program.title }}</h2>
+    <p>Status: {{ program.status }}</p>
+    <p>Language: {{ program.language_primary }}</p>
+
+    <a href="/ui/programs">⬅ Back to Programs</a>
+
+    <h3>Program Posters</h3>
+
+    <form method="POST" action="/ui/programs/{{ program.id }}/assets">
+        <label>Language:</label>
+        <input type="text" name="language" value="{{ program.language_primary }}" required>
+
+        <label>Variant:</label>
+        <select name="variant" required>
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+        </select>
+
+        <label>Image URL:</label>
+        <input type="text" name="url" placeholder="https://example.com/poster.jpg" required>
+
+        <button type="submit">➕ Add Poster</button>
+    </form>
+
+    <hr>
+
+    <h3>Terms</h3>
+
+    <a href="/ui/terms/create/{{ program.id }}">➕ Add Term</a>
+
+    {% for term in terms %}
+        <h4>Term {{ term.term_number }} - {{ term.title }}</h4>
+
+        <a href="/ui/lessons/create/{{ term.id }}">➕ Add Lesson</a>
+
+        <ul>
+            {% for lesson in term.lessons %}
+                <li>
+                    {{ lesson.lesson_number }}. {{ lesson.title }} ({{ lesson.status }})
+
+                    <a href="/ui/lessons/{{ lesson.id }}">View</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>

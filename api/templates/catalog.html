@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Public Catalog</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+<h2>📚 Public Course Catalog</h2>
+
+{% for program in programs %}
+    <div style="border:2px solid #444; padding:15px; margin-bottom:15px;">
+        <h3>{{ program.title }}</h3>
+
+        {% for term in program.terms %}
+            <div style="margin-left:15px;">
+                <h4>Term {{ term.term_number }} - {{ term.term_title }}</h4>
+
+                <ul>
+                    {% for lesson in term.lessons %}
+                        <li>
+                            {{ lesson.lesson_number }}. {{ lesson.title }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>No published lessons yet.</p>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No programs available.</p>
+{% endfor %}
+</div>
+</body>
+</html>
+

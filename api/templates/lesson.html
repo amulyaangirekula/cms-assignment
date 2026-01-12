@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ lesson.title }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>{{ lesson.title }}</h1>
+
+<p><b>Status:</b> {{ lesson.status }}</p>
+<p><b>Content Type:</b> {{ lesson.content_type }}</p>
+<p><b>Language:</b> {{ lesson.content_language_primary }}</p>
+<p><b>Duration:</b> {{ lesson.duration_ms }} ms</p>
+
+<hr>
+
+<h3>Lesson Thumbnails</h3>
+
+<form method="POST" action="/ui/lessons/{{ lesson.id }}/assets">
+    <label>Language:</label>
+    <input type="text" name="language" value="{{ lesson.content_language_primary }}" required>
+
+    <label>Variant:</label>
+    <select name="variant" required>
+        <option value="portrait">Portrait</option>
+        <option value="landscape">Landscape</option>
+    </select>
+
+    <label>Image URL:</label>
+    <input type="text" name="url" placeholder="https://example.com/thumb.jpg" required>
+
+    <button type="submit">➕ Add Thumbnail</button>
+</form>
+
+<hr>
+
+{% if lesson.status != "published" %}
+    <form method="POST" action="/ui/lessons/{{ lesson.id }}/publish">
+        <button type="submit">🚀 Publish Lesson</button>
+    </form>
+{% else %}
+    <p>✅ This lesson is published</p>
+{% endif %}
+
+<br>
+<a href="/ui/programs">⬅ Back to Programs</a>
+
+</div>
+
+</body>
+</html>
